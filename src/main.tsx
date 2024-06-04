@@ -14,6 +14,7 @@ import ProfilePage from './pages/profile/ProfilePage.tsx';
 
 import { store } from './state/store.tsx'
 import { Provider } from 'react-redux'
+import { RouterPage } from './pages/RouterPage.tsx';
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,9 @@ const router = createBrowserRouter([
       },
       {
         path: "/:user", element: <ProfilePage />,
+      },
+      {
+        path: "/router/:router", element: <RouterPage />,
       }
 
     ]

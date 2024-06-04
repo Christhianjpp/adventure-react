@@ -1,22 +1,66 @@
 import { useDispatch, useSelector } from "react-redux"
-import { RootState } from "../state/store"
-import adventureApi from "../api/adventureApi"
+import { AppDispatch, RootState } from "../state/store"
+import { useEffect, useState } from "react"
 
-const getCategories = async () => {
-    const resp = await adventureApi.get('/category')
-    console.log(resp.data)
-}
+import { fetchCategories } from "../state/category/categoriesSlice"
+import { province } from "../data/province"
 
-
+import RoutesListHome from "../components/routes/RoutesListHome"
+import { fetchInitialRoutes } from "../state/routes/routesSlice"
+import { MenuTop } from "../components/MenuTop"
 
 const HomePage = () => {
-    getCategories()
-    // const { total, categories } = useSelector((state: RootState) => state.categories)
-    // const dispatch = useDispatch()
+    // const { categories, routes } = useSelector((state: RootState) => ({
+    //     categories: state.categories,
+    //     routes: state.routes,
+    // }));
+
+    const [selectCategoryId, setSelectCategoryId] = useState<string>('')
+    const [selectProvinceId, setSelectProvinceId] = useState<string>('')
+
+    const { categories, loading } = useSelector((state: RootState) => state.categories)
+
+    const dispatch = useDispatch<AppDispatch>()
+
+    useEffect(() => {
+        dispatch(fetchCategories())
+        dispatch(fetchInitialRoutes({ category: '', province: '' }))
+    }, [dispatch])
+
+    useEffect(() => {
+        if (selectCategoryId || selectProvinceId) {
+            dispatch(fetchInitialRoutes({ category: selectCategoryId, province: selectProvinceId }))
+        }
+
+    }, [selectCategoryId, selectProvinceId, dispatch])
     return (
-        <div>
-            {/* <pre>{JSON.stringify(categories, null, 2)}</pre> */}
+        <div className=" flex flex-col min-h-dvh  items-center">
+
+            <section
+                className=" sticky top-0  bg-white shadow-md z-10  w-full  " >
+
+                {
+                    loading
+                        ? <div>Loading...</div>
+                        : (
+                            <>
+                                <MenuTop categories={categories} selectId={setSelectCategoryId} />
+                                <MenuTop categories={province} selectId={setSelectProvinceId} />
+                            </>
+                        )
+
+                }
+
+            </section>
+            <section className="flex flex-col items-center  ">
+
+                <RoutesListHome selectCategory={selectCategoryId} selectProvince={selectProvinceId} />
+
+
+
+            </section>
         </div>
     )
 }
+
 export default HomePage
