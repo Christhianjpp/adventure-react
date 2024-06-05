@@ -1,9 +1,9 @@
 import React from "react";
 import { RouteElement } from "../../interfaces/routeInterface";
 
-import moment from 'moment';
+import Moment from 'moment'
 
-import 'moment/locale/es';
+
 import { RouteViewImage } from './RouteViewImage';
 import { IconHeartOutline } from "../icons/IconHeartOutline";
 import { IconChatBoxOutline } from "../icons/IconChatBoxOutline";
@@ -17,8 +17,7 @@ interface Props {
 }
 
 export const RouteCard = React.memo((({ route }: Props) => {
-    moment.locale('es');
-    const formattedDate = moment(route.createdAt).format('LL'); // Ejemplo de formato: 1 de enero de 2020 12:00
+    const formattedDate = Moment(route.createdAt).format('LL'); // Ejemplo de formato: 1 de enero de 2020 12:00
     const navigation = useNavigate()
     const dispatch = useDispatch()
     const handleNavigation = () => {
@@ -41,7 +40,12 @@ export const RouteCard = React.memo((({ route }: Props) => {
                         <div className="flex gap-3 items-center">
                             <span className="font-semibold">{route.province.name}</span>
                             <span className="font-semibold text-green-600">{route.category.name}</span>
-                            <span className="font-light text-sm text-gray-500">{formattedDate}</span>
+                            <span className="font-light text-sm text-gray-500">
+
+                                {formattedDate}
+
+
+                            </span>
                         </div>
                     </div>
 

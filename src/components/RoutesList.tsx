@@ -8,7 +8,7 @@ export const RoutesList = ({ routes }: Props) => {
     return (
         <div className=''>
             {
-                routes.map((route, index) => (
+                routes.map((route) => (
 
                     <RouteCard key={route._id} route={route} />
 

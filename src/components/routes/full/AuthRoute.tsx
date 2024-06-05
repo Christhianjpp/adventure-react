@@ -1,4 +1,3 @@
-import React from 'react'
 import { Author } from '../../../interfaces/routeInterface'
 
 interface Props {

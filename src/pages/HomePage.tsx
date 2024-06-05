@@ -8,6 +8,7 @@ import { province } from "../data/province"
 import RoutesListHome from "../components/routes/RoutesListHome"
 import { fetchInitialRoutes } from "../state/routes/routesSlice"
 import { MenuTop } from "../components/MenuTop"
+import { LoginGoogle } from "../components/auth/LoginGoogle"
 
 const HomePage = () => {
     // const { categories, routes } = useSelector((state: RootState) => ({
@@ -52,8 +53,8 @@ const HomePage = () => {
                 }
 
             </section>
-            <section className="flex flex-col items-center  ">
-
+            <section className="  ">
+                <LoginGoogle />
                 <RoutesListHome selectCategory={selectCategoryId} selectProvince={selectProvinceId} />
 
 
